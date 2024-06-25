@@ -1,0 +1,32 @@
+.item-card {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  width: 323px;
+  height: 326px;
+}
+
+.item-card__name-frame {
+  position: absolute;
+  top: 15px;
+  margin: 0;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.item-card__name {
+  margin: 2px 12px;
+  color: rgba(0, 0, 0, 0.6);
+  padding: 2px 12px;
+}
+
+.item-card__image {
+  width: 100%;
+  height: auto;
+  max-height: 498px;
+  object-fit: cover;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  overflow: hidden;
+}

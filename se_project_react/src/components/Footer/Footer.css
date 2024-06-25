@@ -1,0 +1,14 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 85px 0 24px;
+}
+
+.footer__name {
+  margin: 0;
+}
+
+.footer__year {
+  margin: 0;
+}
