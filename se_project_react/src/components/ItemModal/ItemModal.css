@@ -1,0 +1,34 @@
+.modal__content_type_image {
+  width: 498px;
+  height: 610px;
+  margin: 0;
+  padding: 0;
+}
+
+.modal__image {
+  width: 100%;
+  height: auto;
+  max-height: 498px;
+  object-fit: cover;
+}
+
+.modal__footer {
+  margin-left: 32px;
+  font-family: "Cabinet Grotesk";
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal__caption {
+  margin: 0;
+  padding: 20px 0 12px;
+}
+
+.modal__weather {
+  margin: 0;
+  padding-bottom: 32px;
+}
