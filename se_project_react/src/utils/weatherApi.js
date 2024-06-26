@@ -7,3 +7,20 @@ export const getWeather = ({ latitude, longitude }, APIkey) => {
     return checkResponse(res);
   });
 };
+
+export const filterWeatherData = (data) => {
+  const result = {};
+  result.location = data.name;
+  result.temp = { F: data.main.temp };
+  return result;
+};
+
+const getWeatherType = (temperature) => {
+  if (temperature >= 86) {
+    return "hot";
+  } else if (temperature >= 66) {
+    return "warm";
+  } else {
+    return "cold";
+  }
+};
