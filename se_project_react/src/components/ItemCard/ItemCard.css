@@ -4,6 +4,7 @@
   position: relative;
   width: 323px;
   height: 326px;
+  cursor: pointer;
 }
 
 .item-card__name-frame {
@@ -16,9 +17,13 @@
 }
 
 .item-card__name {
-  margin: 2px 12px;
+  margin: 0;
   color: rgba(0, 0, 0, 0.6);
   padding: 2px 12px;
+  font-family: "Cabinet Grotesk";
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
 }
 
 .item-card__image {
