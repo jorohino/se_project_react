@@ -8,6 +8,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  visibility: hidden;
+}
+
+.modal__opened {
+  visibility: visible;
 }
 
 .modal__title {
@@ -25,6 +30,7 @@
   width: 16px;
   height: 16px;
   border: none;
+  cursor: pointer;
 }
 
 .modal__content {
