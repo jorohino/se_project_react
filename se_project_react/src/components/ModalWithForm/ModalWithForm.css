@@ -4,6 +4,7 @@
   left: 0;
   bottom: 0;
   right: 0;
+  z-index: 99;
   background-color: #0000004d;
   display: flex;
   justify-content: center;
