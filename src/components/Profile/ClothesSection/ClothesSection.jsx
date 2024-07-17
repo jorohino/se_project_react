@@ -3,7 +3,7 @@ import ItemCard from "../../ItemCard/ItemCard";
 import "./ClothesSection.css";
 import { defaultClothingItems } from "../../../utils/constants";
 
-function ClothesSection({ handleCardClick, clothingItems, handleAddClick }) {
+function ClothesSection({ onCardClick, handleAddClick }) {
   return (
     <div className="clothes-section">
       <div className="clothes-section__header-wrapper">
@@ -11,7 +11,7 @@ function ClothesSection({ handleCardClick, clothingItems, handleAddClick }) {
         <button
           className="clothes-section__add-btn"
           type="button"
-          onCardClick={handleAddClick}
+          onClick={handleAddClick}
         >
           + Add New
         </button>
@@ -19,11 +19,7 @@ function ClothesSection({ handleCardClick, clothingItems, handleAddClick }) {
       <ul className="clothes-section__items">
         {defaultClothingItems.map((item) => {
           return (
-            <ItemCard
-              key={item._id}
-              item={item}
-              handleCardClick={handleCardClick}
-            />
+            <ItemCard key={item._id} item={item} onCardClick={onCardClick} />
           );
         })}
       </ul>
