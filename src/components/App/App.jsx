@@ -37,10 +37,15 @@ function App() {
     setActiveModal("");
   };
 
-  const onAddItem = (e, values) => {
-    e.preventDefault();
-    console.log(e);
-    console.log(values);
+  const onAddItem = (values) => {
+    AddItemModal(values)
+      .then((newItem) => {
+        setClothingItems([newItem, ...clothingItems]);
+        closeActiveModal();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handleToggleSwitchChange = () => {
