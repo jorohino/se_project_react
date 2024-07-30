@@ -143,6 +143,24 @@
       "imageUrl": "https://m.media-amazon.com/images/I/91PqP5-6loL._AC_UY1000_.jpg",
       "weather": "cold",
       "_id": 26
+    },
+    {
+      "name": "straw hat",
+      "imageUrl": "https://m.media-amazon.com/images/I/91PqP5-6loL._AC_UY1000_.jpg",
+      "weather": "hot",
+      "_id": 27
+    },
+    {
+      "name": "straw hat",
+      "imageUrl": "https://m.media-amazon.com/images/I/91PqP5-6loL._AC_UY1000_.jpg",
+      "weather": "cold",
+      "_id": 29
+    },
+    {
+      "name": "straw hat",
+      "imageUrl": "https://m.media-amazon.com/images/I/91PqP5-6loL._AC_UY1000_.jpg",
+      "weather": "hot",
+      "_id": 31
     }
   ]
 }
