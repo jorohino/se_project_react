@@ -7,12 +7,6 @@
       "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Beanie.png?etag=bc10497cc80fa557f036e94f9999f7b2"
     },
     {
-      "_id": 1,
-      "name": "Boot",
-      "weather": "cold",
-      "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Boot.png?etag=0953a2ea59f1c6ebc832fabacdc9c70e"
-    },
-    {
       "_id": 2,
       "name": "Cap",
       "weather": "hot",
@@ -101,6 +95,54 @@
       "name": "T-Shirt",
       "weather": "hot",
       "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/T-Shirt.png?etag=44ed1963c44ab19cd2f5011522c5fc09"
+    },
+    {
+      "name": "Jacques Coust",
+      "imageUrl": "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg",
+      "weather": "hot",
+      "_id": 18
+    },
+    {
+      "name": "straw hat",
+      "imageUrl": "https://m.media-amazon.com/images/I/91PqP5-6loL._AC_UY1000_.jpg",
+      "weather": "hot",
+      "_id": 19
+    },
+    {
+      "name": "straw hat",
+      "imageUrl": "https://m.media-amazon.com/images/I/91PqP5-6loL._AC_UY1000_.jpg",
+      "weather": "hot",
+      "_id": 20
+    },
+    {
+      "name": "straw hat",
+      "imageUrl": "https://m.media-amazon.com/images/I/91PqP5-6loL._AC_UY1000_.jpg",
+      "weather": "",
+      "_id": 21
+    },
+    {
+      "name": "stra",
+      "imageUrl": "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg",
+      "weather": "hot",
+      "_id": 22
+    },
+    {
+      "name": "straw hat",
+      "imageUrl": "https://m.media-amazon.com/images/I/91PqP5-6loL._AC_UY1000_.jpg",
+      "weather": "hot",
+      "_id": 23
+    },
+    {
+      "name": "straw hat",
+      "imageUrl": "https://m.media-amazon.com/images/I/91PqP5-6loL._AC_UY1000_.jpg",
+      "weather": "hot",
+      "_id": 25
+    },
+    {
+      "name": "straw hat",
+      "imageUrl": "https://m.media-amazon.com/images/I/91PqP5-6loL._AC_UY1000_.jpg",
+      "weather": "cold",
+      "_id": 26
     }
   ]
 }

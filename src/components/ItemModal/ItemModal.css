@@ -25,10 +25,28 @@
 
 .modal__caption {
   margin: 0;
+  font-size: 20px;
   padding: 20px 0 12px;
 }
 
 .modal__weather {
   margin: 0;
   padding-bottom: 32px;
+}
+
+.modal__delete {
+  display: flex;
+  align-items: start;
+  border: none;
+  background: transparent;
+  color: #ff4d00;
+  padding: 20px 32px 68px;
+  font-weight: 700;
+  font-size: 20px
+  line-height: 24px;
+  cursor: pointer;
+}
+
+.modal__delete:hover {
+  opacity: 0.6;
 }
