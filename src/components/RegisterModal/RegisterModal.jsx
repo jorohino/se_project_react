@@ -11,7 +11,7 @@ const RegisterModal = ({
   const [data, setData] = useState({
     email: "",
     password: "",
-    name: "",
+    username: "",
     avatar: "",
   });
 
@@ -60,15 +60,15 @@ const RegisterModal = ({
           onChange={handleChange}
         />
       </label>
-      <label htmlFor="name" className="modal__label">
+      <label htmlFor="username" className="modal__label">
         Name
         <input
           type="text"
           className="modal__input"
-          id="name"
+          id="username"
           placeholder="Name"
-          name="name"
-          value={data.name}
+          name="username"
+          value={data.username}
           onChange={handleChange}
         />
       </label>
@@ -95,3 +95,5 @@ const RegisterModal = ({
     </ModalWithForm>
   );
 };
+
+export default RegisterModal;

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-const Login = ({
+const LoginModal = ({
   handleLogin,
   navigateToRegister,
   closeActiveModal,
@@ -74,3 +74,5 @@ const Login = ({
     </ModalWithForm>
   );
 };
+
+export default LoginModal;

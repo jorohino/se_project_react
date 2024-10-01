@@ -3,6 +3,10 @@ import { Routes, Route } from "react-router-dom";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import * as auth from "../../utils/auth";
+import * as token from "../../utils/token";
+
+import RegisterModal from "../RegisterModal/RegisterModal";
+import LoginModal from "../LoginModal/LoginModal";
 
 import "./App.css";
 import Header from "../Header/Header";
@@ -14,12 +18,12 @@ import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import { APIkey, coordinates } from "../../utils/constants";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 import AddItemModal from "../AddItemModal/AddItemModal";
-import { getItems, addItem, deleteItem } from "../../utils/api";
+import { getItems, addItem, deleteItem, getUserInfo } from "../../utils/api";
 import ConfirmDeleteModal from "../ConfirmDeleteModal/ConfirmDeleteModal";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  //TODO: const [userData, setUserData] = useState({})
+  const [currentUser, setCurrentUser] = useState({});
 
   const [weatherData, setWeatherData] = useState({
     type: "",
@@ -31,21 +35,58 @@ function App() {
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
 
+  const handleRegistration = ({ email, password, username, avatar }) => {
+    return auth
+      .register(email, password, username, avatar)
+      .then(() => {
+        handleLogin({ email, password });
+        closeActiveModal();
+      })
+      .catch(console.error);
+  };
+
   const handleLogin = ({ email, password }) => {
-    if (!username || !password) {
+    if (!email || !password) {
       return;
     }
 
-    /*auth
+    auth
       .authorize(email, password)
       .then((data) => {
-        if (data.jwt);
-        setUserData(data.user);
-        setIsLoggedIn(true);
-
-        const redirectPath = location.state?.from?.pathname
-      }) */
+        console.log(data);
+        if (data.token) {
+          setToken(data.token);
+          api.getUserInfo(data.token).then((userData) => {
+            setCurrentUser(userData);
+            setIsLoggedIn(true);
+            closeActiveModal();
+            navigate("/profile");
+          });
+        }
+      })
+      .catch((err) => console.error("Login failed: ", err));
   };
+
+  useEffect(() => {
+    const jwt = token.getToken();
+
+    if (!jwt) {
+      return;
+    }
+
+    api
+      .getUserInfo(jwt)
+      .then((userData) => {
+        setIsLoggedIn(true);
+        setCurrentUser(userData);
+        navigate("/profile");
+      })
+      .catch((err) => {
+        console.error("Token validation failed: ", err);
+        setIsLoggedIn(false);
+        token.removeToken();
+      });
+  });
 
   const handleCardClick = (card) => {
     setActiveModal("preview");
@@ -112,7 +153,7 @@ function App() {
   }, []);
 
   return (
-    <CurrentUserContext.Provider value={{ isLoggedIn }}>
+    <CurrentUserContext.Provider value={{ isLoggedIn, currentUser }}>
       <div className="page">
         <CurrentTemperatureUnitContext.Provider
           value={{ currentTemperatureUnit, handleToggleSwitchChange }}
