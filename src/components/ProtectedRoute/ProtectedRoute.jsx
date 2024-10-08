@@ -1,18 +1,8 @@
-import { useContext } from "react";
-import { Navigate, useLocation } from "react-router-dom";
-import CurrentUserContext from "../../contexts/CurrentUserContext";
+import { Navigate } from "react-router-dom";
 
-function ProtectedRoute({ children, anonymous = false }) {
-  const location = useLocation();
-  const from = location.state?.from || "/";
-  const { isLoggedIn } = useContext(CurrentUserContext);
-
-  if (anonymous && isLoggedIn) {
-    return <Navigate to={from} />;
-  }
-
-  if (!anonymous && !isLoggedIn) {
-    return <Navigate to="/login" state={{ from: location }} />;
+function ProtectedRoute({ children, isLoggedIn }) {
+  if (!isLoggedIn) {
+    return <Navigate to="/" replace />;
   }
 
   return children;

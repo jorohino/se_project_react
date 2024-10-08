@@ -31,6 +31,20 @@
   gap: 12px;
 }
 
+.header__user-placeholder {
+  width: 40px;
+  height: 40px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+}
+
 .header__user-name {
   margin: 0;
 }

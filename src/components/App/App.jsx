@@ -79,14 +79,13 @@ function App() {
       .then((userData) => {
         setIsLoggedIn(true);
         setCurrentUser(userData);
-        navigate("/profile");
       })
       .catch((err) => {
         console.error("Token validation failed: ", err);
         setIsLoggedIn(false);
         token.removeToken();
       });
-  });
+  }, []);
 
   const handleCardClick = (card) => {
     setActiveModal("preview");
@@ -152,6 +151,31 @@ function App() {
       .catch(console.error);
   }, []);
 
+  const handleCardLike = ({ id, isLiked }) => {
+    const jwt = localStorage.getItem("jwt");
+    // Check if this card is not currently liked
+    !isLiked
+      ? // if so, send a request to add the user's id to the card's likes array
+        api
+          // the first argument is the card's id
+          .addCardLike(id, jwt)
+          .then((updatedCard) => {
+            setClothingItems((cards) =>
+              cards.map((item) => (item._id === id ? updatedCard : item))
+            );
+          })
+          .catch((err) => console.log(err))
+      : // if not, send a request to remove the user's id from the card's likes array
+        api
+          // the first argument is the card's id
+          .removeCardLike(id, jwt)
+          .then((updatedCard) => {
+            setClothingItems((cards) =>
+              cards.map((item) => (item._id === id ? updatedCard : item))
+            );
+          })
+          .catch((err) => console.log(err));
+  };
   return (
     <CurrentUserContext.Provider value={{ isLoggedIn, currentUser }}>
       <div className="page">

@@ -38,4 +38,19 @@ function getUserInfo(token) {
   }).then(checkResponse);
 }
 
+function updateUserInfo(user, token) {
+  return request(`${baseUrl}/users/me`, {
+    method: "PATCH",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      username: user.username,
+      avatar: user.avatar,
+    }),
+  });
+}
+
 export { getItems, addItem, deleteItem, getUserInfo, baseUrl };

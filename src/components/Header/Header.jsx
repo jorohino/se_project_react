@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
+import { useContext } from "react";
 import "./Header.css";
 import logo from "../../assets/logo.svg";
 import avatar from "../../assets/avatar.png";
@@ -9,6 +11,15 @@ function Header({ handleAddClick, weatherData }) {
     month: "long",
     day: "numeric",
   });
+
+  const { currentUser } = useContext(CurrentUserContext);
+
+  const isLoggedIn = true;
+
+  const userInitial = currentUser.name
+    ? currentUser.name.charAt(0).toUpperCase()
+    : "?";
+
   return (
     <header className="header">
       <Link to="/">
@@ -21,18 +32,26 @@ function Header({ handleAddClick, weatherData }) {
       <button
         onClick={handleAddClick}
         type="button"
-        className="header__add-clothes-btn"
+        className={`header__add-clothes-btn ${
+          !isLoggedIn ? "header__button_hidden" : ""
+        }`}
       >
         +Add clothes
       </button>
       <Link to="/profile" className="header__link">
         <div className="header__user">
-          <p className="header__user-name">Terrence Tegegne</p>
-          <img
-            className="header__user-pfp"
-            src={avatar}
-            alt="Terrence Tegegne"
-          ></img>
+          <p className="header__user-name">
+            {isLoggedIn ? currentUser.username : "Guest"}
+          </p>
+          {isLoggedIn && currentUser.avatar ? (
+            <img
+              className="header__user-pfp"
+              src={avatar}
+              alt="Terrence Tegegne"
+            ></img>
+          ) : (
+            <div className="header__user-placeholder">{userInitial}</div>
+          )}
         </div>
       </Link>
     </header>
