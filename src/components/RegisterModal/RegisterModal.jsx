@@ -5,7 +5,7 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 const RegisterModal = ({
   handleRegistration,
   navigateToLogin,
-  closeActiveModal,
+  onClose,
   isOpen,
 }) => {
   const [data, setData] = useState({
@@ -33,7 +33,7 @@ const RegisterModal = ({
       titleText="Sign up"
       buttonText="Sign up"
       isOpen={isOpen}
-      onClose={closeActiveModal}
+      onClose={onClose}
       onSubmit={handleSubmit}
     >
       <label htmlFor="email" className="modal__label">

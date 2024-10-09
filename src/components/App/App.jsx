@@ -20,6 +20,7 @@ import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperature
 import AddItemModal from "../AddItemModal/AddItemModal";
 import { getItems, addItem, deleteItem, getUserInfo } from "../../utils/api";
 import ConfirmDeleteModal from "../ConfirmDeleteModal/ConfirmDeleteModal";
+import EditProfileModal from "../EditProfileModal/EditProfileModal";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -90,6 +91,16 @@ function App() {
       .catch(console.error);
   }, []);
 
+  const navigateToLogin = () => {
+    closeActiveModal();
+    setActiveModal("login");
+  };
+
+  const navigateToRegister = () => {
+    closeActiveModal();
+    setActiveModal("register");
+  };
+
   const handleEditUser = (data) => {
     const jwt = token.getToken();
     return api
@@ -120,6 +131,18 @@ function App() {
 
   const handleAddClick = () => {
     setActiveModal("add-garment");
+  };
+
+  const handleSignUpClick = () => {
+    setActiveModal("register");
+  };
+
+  const handleLoginClick = () => {
+    setActiveModal("login");
+  };
+
+  const handleEditUserClick = () => {
+    setActiveModal("edit-profile");
   };
 
   const closeActiveModal = () => {
@@ -202,6 +225,7 @@ function App() {
           })
           .catch((err) => console.log(err));
   };
+
   return (
     <CurrentUserContext.Provider value={{ currentUser }}>
       <div className="page">
@@ -211,6 +235,8 @@ function App() {
           <div className="page__content">
             <Header
               handleAddClick={handleAddClick}
+              handleLoginClick={handleLoginClick}
+              handleSignUpClick={handleSignUpClick}
               weatherData={weatherData}
               isLoggedIn={isLoggedIn}
             />
@@ -229,11 +255,15 @@ function App() {
               <Route
                 path="/profile"
                 element={
-                  <ProtectedRoute>
+                  <ProtectedRoute isLoggedIn={isLoggedIn}>
                     <Profile
+                      weatherData={weatherData}
                       onCardClick={handleCardClick}
                       clothingItems={clothingItems}
                       handleAddClick={handleAddClick}
+                      handleEditUserClick={handleEditUserClick}
+                      handleSignOut={handleSignOut}
+                      onCardLike={handleCardLike}
                     />
                   </ProtectedRoute>
                 }
@@ -241,6 +271,23 @@ function App() {
             </Routes>
             <Footer />
           </div>
+          <RegisterModal
+            isOpen={activeModal === "register"}
+            onClose={closeActiveModal}
+            handleRegistration={handleRegistration}
+            navigateToLogin={navigateToLogin}
+          />
+          <LoginModal
+            isOpen={activeModal === "login"}
+            onClose={closeActiveModal}
+            handleLogin={handleLogin}
+            navigateToRegister={navigateToRegister}
+          />
+          <EditProfileModal
+            isOpen={activeModal === "edit-profile"}
+            onClose={closeActiveModal}
+            handleEditUser={handleEditUser}
+          />
           <AddItemModal
             closeActiveModal={closeActiveModal}
             isOpen={activeModal === "add-garment"}

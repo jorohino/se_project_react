@@ -2,12 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-const LoginModal = ({
-  handleLogin,
-  navigateToRegister,
-  closeActiveModal,
-  isOpen,
-}) => {
+const LoginModal = ({ handleLogin, navigateToRegister, onClose, isOpen }) => {
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -31,7 +26,7 @@ const LoginModal = ({
       titleText="Log in"
       buttonText="Log in"
       isOpen={isOpen}
-      onClose={closeActiveModal}
+      onClose={onClose}
       onSubmit={handleSubmit}
     >
       <label htmlFor="email" className="modal__label">
