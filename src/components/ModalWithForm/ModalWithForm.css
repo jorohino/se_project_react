@@ -40,6 +40,14 @@
   cursor: pointer;
 }
 
+.modal__close:hover {
+  width: 18px;
+  height: 18px;
+  top: 20px;
+  right: 26px;
+  transform: 3s;
+}
+
 .modal__content {
   background-color: #fff;
   position: relative;
@@ -112,6 +120,7 @@
 }
 
 .modal__submit {
+  font-family: "Cabinet Grotesk";
   width: 124px;
   height: 36px;
   margin: 34px 0 0;

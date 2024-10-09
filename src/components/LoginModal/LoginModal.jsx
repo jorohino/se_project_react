@@ -1,12 +1,17 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import "./LoginModal.css";
 
 const LoginModal = ({ handleLogin, navigateToRegister, onClose, isOpen }) => {
   const [data, setData] = useState({
     email: "",
     password: "",
   });
+
+  const isFormValid = () => {
+    return data.email && data.password;
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -53,13 +58,16 @@ const LoginModal = ({ handleLogin, navigateToRegister, onClose, isOpen }) => {
           onChange={handleChange}
         />
       </label>
-      <div className="login__button-container">
-        <button type="submit" className="">
+      <div className="login-modal__button-container">
+        <button
+          type="submit"
+          className={`login-modal__link ${isFormValid() ? "active" : ""}`}
+        >
           Log in
         </button>
         <button
           type="button"
-          className=""
+          className="login-modal__register-link"
           to="register"
           onClick={navigateToRegister}
         >
