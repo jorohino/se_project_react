@@ -24,6 +24,8 @@
   text-align: center;
   cursor: pointer;
   position: absolute;
+  left: 0;
+  transition: left 0.1s ease-in-out;
 }
 
 .switch__temp-F {
@@ -43,6 +45,7 @@
 }
 
 .switch__slider-F {
+  left: 0;
 }
 
 .switch__slider-C {

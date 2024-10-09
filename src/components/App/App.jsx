@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import * as auth from "../../utils/auth";
@@ -23,7 +23,12 @@ import ConfirmDeleteModal from "../ConfirmDeleteModal/ConfirmDeleteModal";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState({
+    _id: "",
+    username: "",
+    email: "",
+    avatar: "",
+  });
 
   const [weatherData, setWeatherData] = useState({
     type: "",
@@ -34,6 +39,8 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
+
+  const navigate = useNavigate();
 
   const handleRegistration = ({ email, password, username, avatar }) => {
     return auth
@@ -50,7 +57,7 @@ function App() {
       return;
     }
 
-    auth
+    return auth
       .authorize(email, password)
       .then((data) => {
         console.log(data);
@@ -80,12 +87,31 @@ function App() {
         setIsLoggedIn(true);
         setCurrentUser(userData);
       })
-      .catch((err) => {
-        console.error("Token validation failed: ", err);
-        setIsLoggedIn(false);
-        token.removeToken();
-      });
+      .catch(console.error);
   }, []);
+
+  const handleEditUser = (data) => {
+    const jwt = token.getToken();
+    return api
+      .updateCurrentUser(data, jwt)
+      .then((res) => {
+        setCurrentUser(res);
+        closeActiveModal();
+      })
+      .catch(console.error);
+  };
+
+  const handleSignOut = () => {
+    removeToken();
+    navigate("/");
+    setIsLoggedIn(false);
+    setCurrentUser({
+      _id: "",
+      username: "",
+      email: "",
+      avatar: "",
+    });
+  };
 
   const handleCardClick = (card) => {
     setActiveModal("preview");
