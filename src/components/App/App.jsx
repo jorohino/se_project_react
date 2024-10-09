@@ -1,26 +1,33 @@
+// External Library + Context Imports
 import { useEffect, useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
-import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
+
+// Utility Imports
 import * as auth from "../../utils/auth";
 import * as token from "../../utils/token";
+import { getWeather, filterWeatherData } from "../../utils/weatherApi";
+import { getItems, addItem, deleteItem, getUserInfo } from "../../utils/api";
+import { APIkey, coordinates } from "../../utils/constants";
 
-import RegisterModal from "../RegisterModal/RegisterModal";
-import LoginModal from "../LoginModal/LoginModal";
-
-import "./App.css";
+// Primary Component Imports
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Profile from "../Profile/Profile";
 import Footer from "../Footer/Footer";
-import ItemModal from "../ItemModal/ItemModal";
-import { getWeather, filterWeatherData } from "../../utils/weatherApi";
-import { APIkey, coordinates } from "../../utils/constants";
-import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
-import AddItemModal from "../AddItemModal/AddItemModal";
-import { getItems, addItem, deleteItem, getUserInfo } from "../../utils/api";
-import ConfirmDeleteModal from "../ConfirmDeleteModal/ConfirmDeleteModal";
+
+// Modal Component Imports
+import RegisterModal from "../RegisterModal/RegisterModal";
+import LoginModal from "../LoginModal/LoginModal";
 import EditProfileModal from "../EditProfileModal/EditProfileModal";
+import AddItemModal from "../AddItemModal/AddItemModal";
+import ItemModal from "../ItemModal/ItemModal";
+import ConfirmDeleteModal from "../ConfirmDeleteModal/ConfirmDeleteModal";
+
+// Style Imports
+import "./App.css";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
