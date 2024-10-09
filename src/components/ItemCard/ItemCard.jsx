@@ -5,11 +5,18 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 function ItemCard({ item, onCardClick, onCardLike }) {
   const currentUser = useContext(CurrentUserContext);
 
+  const isLiked = item.likes.some((id) => id === currentUser._id);
+
+  const itemLikeButtonClassName = `card__like-button ${
+    isLiked ? "card__like-button_active" : "card__like-button_inactive"
+  }`;
+
   const handleCardClick = () => {
     onCardClick(item);
   };
 
-  const handleLike = () => {
+  const handleLike = (e) => {
+    e.preventDefault();
     onCardLike({ id: item._id, isLiked: isLiked });
   };
 

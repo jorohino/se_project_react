@@ -177,13 +177,17 @@ function App() {
           .catch((err) => console.log(err));
   };
   return (
-    <CurrentUserContext.Provider value={{ isLoggedIn, currentUser }}>
+    <CurrentUserContext.Provider value={{ currentUser }}>
       <div className="page">
         <CurrentTemperatureUnitContext.Provider
           value={{ currentTemperatureUnit, handleToggleSwitchChange }}
         >
           <div className="page__content">
-            <Header handleAddClick={handleAddClick} weatherData={weatherData} />
+            <Header
+              handleAddClick={handleAddClick}
+              weatherData={weatherData}
+              isLoggedIn={isLoggedIn}
+            />
             <Routes>
               <Route
                 path="/"
@@ -192,6 +196,7 @@ function App() {
                     weatherData={weatherData}
                     onCardClick={handleCardClick}
                     clothingItems={clothingItems}
+                    onCardLike={handleCardLike}
                   />
                 }
               />
