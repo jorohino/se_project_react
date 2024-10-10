@@ -11,14 +11,6 @@ function ClothesSection({ onCardClick, handleAddClick, clothingItems }) {
     (item) => item.owner === currentUser?._id
   );
 
-  // Checking if the current user is the owner of the current clothing item
-  const isOwn = card.owner === currentUser._id;
-
-  // Creating a variable which you'll then set in `className` for the delete button
-  const itemCardClassName = `clothes-section__items ${
-    isOwn ? "clothes-section__items_visible" : "clothes-section__items_hidden"
-  }`;
-
   return (
     <div className="clothes-section">
       <div className="clothes-section__header-wrapper">
@@ -33,6 +25,14 @@ function ClothesSection({ onCardClick, handleAddClick, clothingItems }) {
       </div>
       <ul className="clothes-section__items">
         {userItems.map((item) => {
+          const isOwn = item.owner === currentUser._id;
+
+          const itemCardClassName = `clothes-section__items ${
+            isOwn
+              ? "clothes-section__items_visible"
+              : "clothes-section__items_hidden"
+          }`;
+
           return (
             <ItemCard
               key={item._id}

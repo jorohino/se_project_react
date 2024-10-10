@@ -7,14 +7,14 @@ const SideBar = () => {
 
   return (
     <div className="sidebar">
-      <d className="sidebar__info">
+      <div className="sidebar__info">
         <img
           className="sidebar__avatar"
           src={currentUser?.avatar}
           alt={currentUser?.username}
         />
         <p className="sidebar__username">{currentUser.username}</p>
-      </d>
+      </div>
     </div>
   );
 };

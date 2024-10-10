@@ -8,7 +8,7 @@ import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperature
 import * as auth from "../../utils/auth";
 import * as token from "../../utils/token";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
-import { getItems, addItem, deleteItem, getUserInfo } from "../../utils/api";
+import * as api from "../../utils/api";
 import { APIkey, coordinates } from "../../utils/constants";
 
 // Primary Component Imports
@@ -74,7 +74,7 @@ function App() {
       .then((data) => {
         console.log(data);
         if (data.token) {
-          setToken(data.token);
+          token.setToken(data.token);
           api.getUserInfo(data.token).then((userData) => {
             setCurrentUser(userData);
             setIsLoggedIn(true);
@@ -87,7 +87,7 @@ function App() {
   };
 
   const handleSignOut = () => {
-    removeToken();
+    token.removeToken();
     navigate("/");
     setIsLoggedIn(false);
     setCurrentUser({
@@ -158,7 +158,10 @@ function App() {
 
   // Card Interaction Handlers
   const onAddItem = (values) => {
-    return addItem(values)
+    const jwt = token.getToken();
+
+    return api
+      .addItem(values, jwt)
       .then((newItem) => {
         setClothingItems([newItem, ...clothingItems]);
         closeActiveModal();
@@ -169,7 +172,10 @@ function App() {
   };
 
   const onDeleteItem = (id) => {
-    return deleteItem(id)
+    const jwt = token.getToken();
+
+    return api
+      .deleteItem(id, jwt)
       .then(() => {
         const updatedClothingItems = clothingItems.filter(
           (item) => item._id !== id
@@ -235,7 +241,8 @@ function App() {
   }, []);
 
   useEffect(() => {
-    getItems()
+    api
+      .getItems()
       .then((data) => {
         setClothingItems(data);
       })
