@@ -159,15 +159,16 @@ function App() {
   // Card Interaction Handlers
   const onAddItem = (values) => {
     const jwt = token.getToken();
-
+    console.log("Values being passed to addItem: ", values);
     return api
       .addItem(values, jwt)
       .then((newItem) => {
+        console.log("Item added successfully: ", newItem);
         setClothingItems([newItem, ...clothingItems]);
         closeActiveModal();
       })
       .catch((err) => {
-        console.log(err);
+        console.log("Error in onAddItem: ", err);
       });
   };
 

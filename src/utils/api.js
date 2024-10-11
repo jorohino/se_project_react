@@ -15,7 +15,7 @@ function getItems() {
 }
 
 function addItem({ name, imageUrl, weather }, token) {
-  console.log("Token in addItem: ", token);
+  console.log("Data being sent to the server: ", { name, imageUrl, weather });
   return fetch(`${baseUrl}/items`, {
     method: "POST",
     headers: getHeaders(token),
