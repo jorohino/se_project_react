@@ -3,7 +3,7 @@ import { useContext } from "react";
 import CurrentUserContext from "../../../contexts/CurrentUserContext";
 
 function SideBar({ handleEditUserClick, handleSignOut }) {
-  const { currentUser } = useContext(CurrentUserContext);
+  const currentUser = useContext(CurrentUserContext);
 
   return (
     <div className="sidebar">

@@ -18,7 +18,7 @@ function Header({
     day: "numeric",
   });
 
-  const { currentUser } = useContext(CurrentUserContext);
+  const currentUser = useContext(CurrentUserContext);
 
   const userInitial = currentUser?.username
     ? currentUser.username.charAt(0).toUpperCase()

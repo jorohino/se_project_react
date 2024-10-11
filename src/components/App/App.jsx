@@ -78,6 +78,7 @@ function App() {
           api.getUserInfo(data.token).then((userData) => {
             setCurrentUser(userData);
             setIsLoggedIn(true);
+            console.log("User logged in status:", true);
             closeActiveModal();
             navigate("/profile");
           });
@@ -164,7 +165,7 @@ function App() {
       .addItem(values, jwt)
       .then((newItem) => {
         console.log("Item added successfully: ", newItem);
-        setClothingItems([newItem, ...clothingItems]);
+        setClothingItems([newItem.data, ...clothingItems]);
         closeActiveModal();
       })
       .catch((err) => {
@@ -189,8 +190,13 @@ function App() {
       });
   };
 
-  const handleCardLike = ({ id, isLiked }) => {
-    const jwt = localStorage.getItem("jwt");
+  /* const handleCardLike = ({ id, isLiked }) => {
+    const jwt = token.getToken("jwt");
+
+    if (!jwt) {
+      console.error("JWT token is missing, unable to like the card.");
+      return;
+    }
     // Check if this card is not currently liked
     !isLiked
       ? // if so, send a request to add the user's id to the card's likes array
@@ -198,28 +204,59 @@ function App() {
           // the first argument is the card's id
           .addCardLike(id, jwt)
           .then((updatedCard) => {
+            console.log("Updated card after liking:", updatedCard);
             setClothingItems((cards) =>
-              cards.map((item) => (item._id === id ? updatedCard : item))
+              cards.map((item) => (item._id === id ? updatedCard.data : item))
             );
           })
-          .catch((err) => console.log(err))
+          .catch((err) => console.log("Error liking the card:", err))
       : // if not, send a request to remove the user's id from the card's likes array
         api
           // the first argument is the card's id
           .removeCardLike(id, jwt)
           .then((updatedCard) => {
+            console.log("Updated card after unliking:", updatedCard);
             setClothingItems((cards) =>
-              cards.map((item) => (item._id === id ? updatedCard : item))
+              cards.map((item) => (item._id === id ? updatedCard.data : item))
             );
           })
-          .catch((err) => console.log(err));
+          .catch((err) => console.log("Error unliking the card:", err));
+  };
+*/
+
+  const handleCardLike = ({ id, isLiked }) => {
+    const jwt = token.getToken();
+
+    if (!jwt) {
+      console.error("JWT token is missing, unable to like the card.");
+      return;
+    }
+
+    const likeAction = !isLiked
+      ? api.addCardLike(id, jwt)
+      : api.removeCardLike(id, jwt);
+
+    likeAction
+      .then((response) => response.json()) // Parse the response into JSON
+      .then((updatedCard) => {
+        console.log("Updated card after like/dislike:", updatedCard.data);
+
+        setClothingItems((items) =>
+          items.map((item) => (item._id === id ? updatedCard.data : item))
+        );
+      })
+      .catch((err) => console.log("Error in liking/disliking the card:", err));
+
+    console.log("Card is liked:", isLiked);
   };
 
   // API Data Fetching
   useEffect(() => {
     const jwt = token.getToken();
+    console.log("JWT token on load:", jwt);
 
     if (!jwt) {
+      console.log("JWT not found, user is not logged in.");
       return;
     }
 
@@ -228,8 +265,17 @@ function App() {
       .then((userData) => {
         setIsLoggedIn(true);
         setCurrentUser(userData);
+        console.log("User re-authenticated on page load.");
+        console.log("User data on load:", userData);
+        api.getUserInfo(jwt).then((userData) => {
+          console.log("User data from API:", userData); // Check if _id is present
+          setCurrentUser(userData);
+        });
       })
-      .catch(console.error);
+      .catch((err) => {
+        console.error("Error re-authenticating user:", err);
+        setIsLoggedIn(false);
+      });
   }, []);
 
   useEffect(() => {
@@ -251,7 +297,7 @@ function App() {
   }, []);
 
   return (
-    <CurrentUserContext.Provider value={{ currentUser }}>
+    <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <CurrentTemperatureUnitContext.Provider
           value={{ currentTemperatureUnit, handleToggleSwitchChange }}
@@ -273,6 +319,7 @@ function App() {
                     onCardClick={handleCardClick}
                     clothingItems={clothingItems}
                     onCardLike={handleCardLike}
+                    isLoggedIn={isLoggedIn}
                   />
                 }
               />
@@ -288,6 +335,7 @@ function App() {
                       handleEditUserClick={handleEditUserClick}
                       handleSignOut={handleSignOut}
                       onCardLike={handleCardLike}
+                      isLoggedIn={isLoggedIn}
                     />
                   </ProtectedRoute>
                 }

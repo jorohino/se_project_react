@@ -48,4 +48,27 @@ function updateUserInfo(user, token) {
   });
 }
 
-export { getItems, addItem, deleteItem, getUserInfo, baseUrl, updateUserInfo };
+function addCardLike(cardId, token) {
+  return fetch(`${baseUrl}/items/${cardId}/likes`, {
+    method: "PUT",
+    headers: getHeaders(token),
+  });
+}
+
+function removeCardLike(cardId, token) {
+  return fetch(`${baseUrl}/items/${cardId}/likes`, {
+    method: "DELETE",
+    headers: getHeaders(token),
+  });
+}
+
+export {
+  getItems,
+  addItem,
+  deleteItem,
+  getUserInfo,
+  baseUrl,
+  updateUserInfo,
+  addCardLike,
+  removeCardLike,
+};
