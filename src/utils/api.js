@@ -48,4 +48,4 @@ function updateUserInfo(user, token) {
   });
 }
 
-export { getItems, addItem, deleteItem, getUserInfo, baseUrl };
+export { getItems, addItem, deleteItem, getUserInfo, baseUrl, updateUserInfo };

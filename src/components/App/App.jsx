@@ -102,7 +102,7 @@ function App() {
   const handleEditUser = (data) => {
     const jwt = token.getToken();
     return api
-      .updateCurrentUser(data, jwt)
+      .updateUserInfo(data, jwt)
       .then((res) => {
         setCurrentUser(res);
         closeActiveModal();

@@ -1,13 +1,13 @@
 import { baseUrl } from "./api";
 
-export const register = (email, password, name, avatar) => {
+export const register = (email, password, username, avatar) => {
   return fetch(`${baseUrl}/signup`, {
     method: "POST",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ email, password, name, avatar }),
+    body: JSON.stringify({ email, password, username, avatar }),
   }).then((res) => {
     return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
   });

@@ -21,7 +21,7 @@ function Header({
   const { currentUser } = useContext(CurrentUserContext);
 
   const userInitial = currentUser?.username
-    ? currentUser.name.charAt(0).toUpperCase()
+    ? currentUser.username.charAt(0).toUpperCase()
     : "?";
 
   return (
