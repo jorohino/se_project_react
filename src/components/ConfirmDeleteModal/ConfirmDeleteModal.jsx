@@ -1,12 +1,6 @@
 import "./ConfirmDeleteModal.css";
 
-function ConfirmDeleteModal({
-  closeActiveModal,
-  isOpen,
-  onDeleteItem,
-  activeModal,
-  card,
-}) {
+function ConfirmDeleteModal({ closeActiveModal, isOpen, onDeleteItem, card }) {
   return (
     <div className={`modal ${isOpen && "modal_opened"}`}>
       <div className="modal-delete__content">

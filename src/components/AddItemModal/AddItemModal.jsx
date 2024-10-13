@@ -27,11 +27,8 @@ const AddItemModal = ({ closeActiveModal, onAddItem, isOpen }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({ name, imageUrl, weather });
-    onAddItem({ name, imageUrl, weather }).then(() => {
-      setName("");
-      setImageUrl("");
-      setWeather("");
+    onAddItem({ name, imageUrl, weather }).catch((err) => {
+      console.error("Error adding item: ", err);
     });
   };
 
