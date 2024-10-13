@@ -190,7 +190,7 @@ function App() {
       });
   };
 
-  /* const handleCardLike = ({ id, isLiked }) => {
+  const handleCardLike = ({ id, isLiked }) => {
     const jwt = token.getToken("jwt");
 
     if (!jwt) {
@@ -221,33 +221,6 @@ function App() {
             );
           })
           .catch((err) => console.log("Error unliking the card:", err));
-  };
-*/
-
-  const handleCardLike = ({ id, isLiked }) => {
-    const jwt = token.getToken();
-
-    if (!jwt) {
-      console.error("JWT token is missing, unable to like the card.");
-      return;
-    }
-
-    const likeAction = !isLiked
-      ? api.addCardLike(id, jwt)
-      : api.removeCardLike(id, jwt);
-
-    likeAction
-      .then((response) => response.json()) // Parse the response into JSON
-      .then((updatedCard) => {
-        console.log("Updated card after like/dislike:", updatedCard.data);
-
-        setClothingItems((items) =>
-          items.map((item) => (item._id === id ? updatedCard.data : item))
-        );
-      })
-      .catch((err) => console.log("Error in liking/disliking the card:", err));
-
-    console.log("Card is liked:", isLiked);
   };
 
   // API Data Fetching
