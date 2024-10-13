@@ -10,35 +10,39 @@ function getHeaders(token) {
   };
 }
 
+function request(url, options) {
+  return fetch(url, options).then(checkResponse);
+}
+
 function getItems() {
   return fetch(`${baseUrl}/items`).then(checkResponse);
 }
 
 function addItem({ name, imageUrl, weather }, token) {
   console.log("Data being sent to the server: ", { name, imageUrl, weather });
-  return fetch(`${baseUrl}/items`, {
+  return request(`${baseUrl}/items`, {
     method: "POST",
     headers: getHeaders(token),
     body: JSON.stringify({ name, imageUrl, weather }),
-  }).then(checkResponse);
+  });
 }
 
 function deleteItem(id, token) {
-  return fetch(`${baseUrl}/items/${id}`, {
+  return request(`${baseUrl}/items/${id}`, {
     method: "DELETE",
     headers: getHeaders(token),
-  }).then(checkResponse);
+  });
 }
 
 function getUserInfo(token) {
-  return fetch(`${baseUrl}/users/me`, {
+  return request(`${baseUrl}/users/me`, {
     method: "GET",
     headers: getHeaders(token),
-  }).then(checkResponse);
+  });
 }
 
 function updateUserInfo(user, token) {
-  return fetch(`${baseUrl}/users/me`, {
+  return request(`${baseUrl}/users/me`, {
     method: "PATCH",
     headers: getHeaders(token),
     body: JSON.stringify({
@@ -49,14 +53,14 @@ function updateUserInfo(user, token) {
 }
 
 function addCardLike(cardId, token) {
-  return fetch(`${baseUrl}/items/${cardId}/likes`, {
+  return request(`${baseUrl}/items/${cardId}/likes`, {
     method: "PUT",
     headers: getHeaders(token),
   });
 }
 
 function removeCardLike(cardId, token) {
-  return fetch(`${baseUrl}/items/${cardId}/likes`, {
+  return request(`${baseUrl}/items/${cardId}/likes`, {
     method: "DELETE",
     headers: getHeaders(token),
   });
