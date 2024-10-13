@@ -24,6 +24,11 @@
   cursor: pointer;
 }
 
+.clothes-section__add-btn:hover {
+  opacity: 0.8;
+  transition: 0.2s;
+}
+
 .clothes-section__items {
   display: flex;
   flex-wrap: wrap;

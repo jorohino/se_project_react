@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import "./AddItemModal.css";
 
 const AddItemModal = ({ closeActiveModal, onAddItem, isOpen }) => {
   const [name, setName] = useState("");
   const handleNameChange = (e) => {
     setName(e.target.value);
   };
+
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   const [imageUrl, setImageUrl] = useState("");
   const handleImageUrlChange = (e) => {
@@ -16,6 +19,11 @@ const AddItemModal = ({ closeActiveModal, onAddItem, isOpen }) => {
   const handleWeatherChange = (e) => {
     setWeather(e.target.value);
   };
+
+  useEffect(() => {
+    const isFormValid = name && imageUrl && weather;
+    setIsButtonDisabled(!isFormValid);
+  }, [name, imageUrl, weather]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,7 +38,6 @@ const AddItemModal = ({ closeActiveModal, onAddItem, isOpen }) => {
   return (
     <ModalWithForm
       titleText="New garment"
-      buttonText="Add garment"
       isOpen={isOpen}
       onClose={closeActiveModal}
       onSubmit={handleSubmit}
@@ -93,7 +100,13 @@ const AddItemModal = ({ closeActiveModal, onAddItem, isOpen }) => {
           Cold
         </label>
       </fieldset>
-      <button type="submit" className="modal__submit">
+      <button
+        type="submit"
+        className={`modal__submit ${
+          isButtonDisabled ? "modal__submit_disabled" : ""
+        }`}
+        disabled={isButtonDisabled}
+      >
         Add garment
       </button>
     </ModalWithForm>

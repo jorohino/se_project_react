@@ -3,25 +3,27 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "./EditProfileModal.css";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-export const EditProfileModal = ({
-  closeActiveModal,
-  isOpen,
-  handleEditUser,
-}) => {
+export const EditProfileModal = ({ onClose, isOpen, handleEditUser }) => {
   const currentUser = useContext(CurrentUserContext);
   const [data, setData] = useState({
-    name: currentUser.username || "",
+    username: currentUser.username || "",
     avatar: currentUser.avatar || "",
   });
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   useEffect(() => {
     if (isOpen) {
       setData({
-        name: currentUser.username || "",
+        username: currentUser.username || "",
         avatar: currentUser.avatar || "",
       });
     }
   }, [isOpen, currentUser]);
+
+  useEffect(() => {
+    const isFormValid = data.username && data.avatar;
+    setIsButtonDisabled(!isFormValid);
+  }, [data]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,7 +42,7 @@ export const EditProfileModal = ({
   return (
     <ModalWithForm
       titleText="Change profile data"
-      onClose={closeActiveModal}
+      onClose={onClose}
       onSubmit={handleSubmit}
       isOpen={isOpen}
     >
@@ -70,7 +72,13 @@ export const EditProfileModal = ({
           onChange={handleChange}
         />
       </label>
-      <button type="submit" className="modal__edit-submit">
+      <button
+        type="submit"
+        className={`modal__edit-submit ${
+          isButtonDisabled ? "modal__edit-submit_disabled" : ""
+        }`}
+        disabled={isButtonDisabled}
+      >
         Save changes
       </button>
     </ModalWithForm>

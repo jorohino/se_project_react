@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "./LoginModal.css";
 
@@ -9,9 +9,12 @@ const LoginModal = ({ handleLogin, navigateToRegister, onClose, isOpen }) => {
     password: "",
   });
 
-  const isFormValid = () => {
-    return data.email && data.password;
-  };
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+  useEffect(() => {
+    const isFormValid = data.email && data.password;
+    setIsButtonDisabled(!isFormValid);
+  }, [data]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -61,7 +64,10 @@ const LoginModal = ({ handleLogin, navigateToRegister, onClose, isOpen }) => {
       <div className="login-modal__button-container">
         <button
           type="submit"
-          className={`login-modal__link ${isFormValid() ? "active" : ""}`}
+          className={`login-modal__link ${
+            isButtonDisabled ? "login-modal__link_disabled" : ""
+          }`}
+          disabled={isButtonDisabled}
         >
           Log in
         </button>

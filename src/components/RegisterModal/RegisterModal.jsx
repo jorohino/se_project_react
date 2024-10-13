@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "./RegisterModal.css";
 
@@ -16,9 +15,13 @@ const RegisterModal = ({
     avatar: "",
   });
 
-  const isFormValid = () => {
-    return data.email && data.password && data.username && data.avatar;
-  };
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+  useEffect(() => {
+    const isFormValid =
+      data.email && data.password && data.username && data.avatar;
+    setIsButtonDisabled(!isFormValid);
+  }, [data]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -92,7 +95,10 @@ const RegisterModal = ({
       <div className="register-modal__button-container">
         <button
           type="submit"
-          className={`register-modal__link ${isFormValid() ? "active" : ""}`}
+          className={`register-modal__link ${
+            isButtonDisabled ? "register-modal__link_disabled" : ""
+          }`}
+          disabled={isButtonDisabled}
         >
           Next
         </button>

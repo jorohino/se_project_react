@@ -32,6 +32,11 @@
   font-weight: 700;
 }
 
+.modal__delete-confirm:hover {
+  opacity: 0.6;
+  transition: 0.2s;
+}
+
 .modal__delete-cancel {
   margin-top: 24px;
   border: none;
@@ -40,4 +45,9 @@
   font-size: 20px;
   cursor: pointer;
   font-weight: 700;
+}
+
+.modal__delete-cancel:hover {
+  opacity: 0.8;
+  transition: 0.2s;
 }

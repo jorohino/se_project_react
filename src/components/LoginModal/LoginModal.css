@@ -10,25 +10,32 @@
 
 .login-modal__link {
   border: none;
-  width: 73px;
+  width: 150px;
   height: 36px;
-  margin: 0;
-  padding: 0;
+  margin-top: 8px;
+  padding: 8px 16px;
+  font-family: "Cabinet Grotesk";
   font-size: 16px;
   font-weight: 700;
   color: #fff;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: black;
   border-radius: 4px;
   cursor: pointer;
 }
 
-.login-modal__link.active {
-  background-color: #000;
+.login-modal__link:hover {
+  opacity: 0.6;
+  transition: 0.2s;
 }
 
-.login-modal__link.active:hover {
+.login-modal__link_disabled {
   opacity: 0.5;
-  transition: 0.2s;
+  cursor: not-allowed;
+}
+
+.login-modal__link_disabled:hover {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .login-modal__register-link {
@@ -47,6 +54,6 @@
 }
 
 .login-modal__register-link:hover {
-  opacity: 0.5;
+  opacity: 0.6;
   transition: 0.2s;
 }

@@ -1,10 +1,9 @@
-.modal__edit-submit {
+.modal__submit {
   border: none;
-  width: 150px;
+  width: 124px;
   height: 36px;
-  margin-top: 8px;
+  margin-top: 32px;
   padding: 8px 16px;
-  font-family: "Cabinet Grotesk";
   font-size: 16px;
   font-weight: 700;
   color: #fff;
@@ -13,17 +12,17 @@
   cursor: pointer;
 }
 
-.modal__edit-submit:hover {
+.modal__submit:hover {
   opacity: 0.6;
   transition: 0.5s;
 }
 
-.modal__edit-submit_disabled {
+.modal__submit_disabled {
   opacity: 0.3;
   cursor: not-allowed;
 }
 
-.modal__edit-submit_disabled:hover {
+.modal__submit_disabled:hover {
   opacity: 0.3;
   cursor: not-allowed;
 }
