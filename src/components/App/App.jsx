@@ -115,6 +115,22 @@ function App() {
     setActiveModal("");
   };
 
+  useEffect(() => {
+    if (!activeModal) return;
+
+    const handleEscClose = (e) => {
+      if (e.key === "Escape") {
+        closeActiveModal();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscClose);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscClose);
+    };
+  }, [activeModal]);
+
   // Navigation Handlers
   const navigateToLogin = () => {
     closeActiveModal();
@@ -197,11 +213,9 @@ function App() {
       console.error("JWT token is missing, unable to like the card.");
       return;
     }
-    // Check if this card is not currently liked
+
     !isLiked
-      ? // if so, send a request to add the user's id to the card's likes array
-        api
-          // the first argument is the card's id
+      ? api
           .addCardLike(id, jwt)
           .then((updatedCard) => {
             console.log("Updated card after liking:", updatedCard);
@@ -210,9 +224,7 @@ function App() {
             );
           })
           .catch((err) => console.log("Error liking the card:", err))
-      : // if not, send a request to remove the user's id from the card's likes array
-        api
-          // the first argument is the card's id
+      : api
           .removeCardLike(id, jwt)
           .then((updatedCard) => {
             console.log("Updated card after unliking:", updatedCard);
